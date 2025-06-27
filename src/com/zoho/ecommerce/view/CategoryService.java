@@ -104,7 +104,7 @@ public class CategoryService implements Execute, Creatable, Editable, Viewable, 
             viewAllCategories();
         }
     }
-    // help methods ->for view  all categories  only 
+    // help methods ->for view all categories only
     private    void viewAllCategories(){
         System.out.println("📋 Available Categories:");
         for (int i = 0; i < categoryController.getCategories().size(); i++) {
@@ -112,7 +112,7 @@ public class CategoryService implements Execute, Creatable, Editable, Viewable, 
         }
     }
 
-    // help methods -> for view  all categories with products in a category
+    // help methods -> for view all categories with products in a category
     public   boolean  viewCategoryForProducts(Scanner sc){
         Category category = getCategory(sc);
         if (category == null) {

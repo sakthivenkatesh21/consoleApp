@@ -5,34 +5,26 @@ import java.time.format.DateTimeFormatter;
 
 public class CardProduct   {
 
-    private Product product;
+    private int productId;
     private int quantity;
     private LocalDateTime prodTimeDateAdded;
     private OrderStatus producStatus;
 
     public CardProduct() {}
 
-    public CardProduct(Product product, int quantity) {
-//        super(product.getId(), product.getProductName(), product.getDescription(), product.getPrice(),
-//              product.getStock(), product.getCategory(), product.getSeller());
-        this.product = product;
+    public CardProduct(int productId, int quantity) {
+        this.productId = productId;
         this.quantity = quantity;
         this.prodTimeDateAdded = LocalDateTime.now();
         this.producStatus = OrderStatus.PENDING;
     }
 
-    public CardProduct(int quantity, LocalDateTime prodTimeDateAdded, OrderStatus producStatus) {
-        this.quantity = quantity;
-        this.prodTimeDateAdded = prodTimeDateAdded;
-        this.producStatus = producStatus;
+    public int getProductId() {
+        return productId;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public int getQuantity() {

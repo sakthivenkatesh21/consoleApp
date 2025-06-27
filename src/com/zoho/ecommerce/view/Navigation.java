@@ -1,5 +1,6 @@
 package com.zoho.ecommerce.view;
 
+import com.zoho.ecommerce.interfaceController.Execute;
 import com.zoho.ecommerce.model.User;
 
 import java.util.InputMismatchException;
@@ -10,17 +11,23 @@ public  class Navigation {
     private final Scanner sc ;
     private final LoggingCredentials credentials;
     private static Navigation getNavigation;
-
     private  final int CUSTOMER =1;
     private  final int SELLER   =2;
     // static block to feed some data
     static
     {
-       new CreatingDefaultProduct();
+       new DefaultProductEntry();
     }
     private Navigation() {
         this.sc = GlobalScanner.getScanner();
         credentials = new LoggingCredentials();
+    }
+    // singleton  method   for Navigation
+    public static Navigation getNavigation() {
+        if (getNavigation == null) {
+            getNavigation = new Navigation();
+        }
+        return getNavigation;
     }
 
     public void menu() {
@@ -64,12 +71,13 @@ public  class Navigation {
                 int choice = sc.nextInt();
                 sc.nextLine();
                 switch (choice) {
-                    case 1 -> new UserService(loggedInUser).operation();
-                    case 2 -> new CategoryService(loggedInUser).operation();
-                    case 3 -> new ProductService(loggedInUser).operation();
-                    case 4 -> new OrderService(loggedInUser).operation();
+                    case 1 -> operation(new UserService(loggedInUser));
+                    case 2 -> operation(new CategoryService(loggedInUser));
+                    case 3 -> operation(new ProductService(loggedInUser));
+                    case 4 -> operation( new OrderService(loggedInUser));
                     case 5 ->{
-                        if(loggedInUser.getRole()==CUSTOMER)new WishlistHandler(loggedInUser).operation();
+                        if(loggedInUser.getRole()==CUSTOMER)
+                            operation(new WishlistHandler(loggedInUser));
                         else System.out.println("Invalid Choice !");
                     }
                     case 0 -> {
@@ -77,7 +85,6 @@ public  class Navigation {
                         return;
                     }
                     default ->  System.out.println("Invalid Choice !");
-
                 }
             }
             catch(InputMismatchException ime) {
@@ -89,19 +96,9 @@ public  class Navigation {
         }
     }
 
-    // exit method and closing Scanner
-//    private void exit(Scanner sc) {
-//        try (sc) {
-//            System.out.println("Thank you for using E - Commerce");
-//        }
-//        System.exit(0);
-//    }
-
-    // singleton  method   for Navigation
-    public static Navigation getNavigation() {
-        if (getNavigation == null) {
-            getNavigation = new Navigation();
-        }
-        return getNavigation;
+    private void operation(Execute execute) {
+        UserAccess userAccess = new UserAccess(execute);
+        userAccess.operation();
     }
+
 }

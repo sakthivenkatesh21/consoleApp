@@ -239,7 +239,7 @@ public class ProductService implements Execute, Creatable, Editable, Viewable, D
                 if (productId == 0) 
                     System.out.println("🔙 Exiting to previous menu.");
                 else
-                 product = productController.isProductExist(productId);
+                 product = productController.getIsProductExist(productId);
             }
             catch( InputMismatchException e){
                 System.out.println("❌ Invalid input. Please enter a valid Product ID.");
@@ -340,7 +340,7 @@ public class ProductService implements Execute, Creatable, Editable, Viewable, D
         return true;
     }
 
-    // input validation for product price(Reuse Methods for update and add)
+    // input validation for product price (Reuse Methods for update and add)
     private double  getPrice(String info){
         System.out.println(info);
         double productPrice = sc.nextDouble();
@@ -351,7 +351,7 @@ public class ProductService implements Execute, Creatable, Editable, Viewable, D
         sc.nextLine();
         return productPrice;
     }
-// input validation for product Stock(Reuse Methods for update and add)
+// input validation for product Stock (Reuse Methods for update and add)
     private  int getStock(String info){
         
         System.out.println(info);
@@ -414,7 +414,7 @@ public class ProductService implements Execute, Creatable, Editable, Viewable, D
         }
        
     }
-// view the out of stock product
+// view the out-of-stock product
     private void  viewReStockk(List<Product> product) {  
         System.out.println("📦 Products available for restocking:");
         System.out.println("------------------------------------------------");

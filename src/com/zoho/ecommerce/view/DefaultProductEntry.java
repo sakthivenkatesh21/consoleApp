@@ -9,14 +9,14 @@ import com.zoho.ecommerce.model.Category;
 import com.zoho.ecommerce.model.User;
 import java.util.List;
 
-final class CreatingDefaultProduct {
+final class DefaultProductEntry {
 
     // use private final to prevent modification of data
     private final  List<User> userList = DataManager.getDataManager().getUser();
     private final  List<Category> categoryList = DataManager.getDataManager().getCategory();
 
     //default constructor to create product data
-    CreatingDefaultProduct() {
+    DefaultProductEntry() {
         createCategoryData();
         createSeller();
         createProductData();

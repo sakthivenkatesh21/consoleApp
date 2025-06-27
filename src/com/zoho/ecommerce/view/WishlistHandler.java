@@ -17,7 +17,7 @@ public class WishlistHandler implements Execute, Creatable, Editable, Viewable, 
     private final User loggedInUser;
     private Product product;
     private Card card;
-
+    private  ProductController productController = new ProductController();
     public WishlistHandler(User loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
@@ -76,7 +76,7 @@ public class WishlistHandler implements Execute, Creatable, Editable, Viewable, 
             return;
         }
 
-        CardProduct cardProduct = new CardProduct(product, quantity);
+        CardProduct cardProduct = new CardProduct(product.getId(), quantity);
         if (cardProduct.canAddToCard() && quantity > 0) {
             if (quantity > 10) {
                 System.out.println("⚠️ You cannot add more than 10 items to the cart.");
@@ -100,6 +100,7 @@ public class WishlistHandler implements Execute, Creatable, Editable, Viewable, 
                 return;
             }
             for (int i = 0; i < card.getProduct().size(); i++) {
+
                 System.out.println("🛍️ Product " + (i + 1) + ": " + card.getProduct().get(i).getProduct().getProductName() + " 💵 Price: " + (card.getProduct().get(i).getQuantity() * card.getProduct().get(i).getProduct().getPrice()));
                 System.out.println("\t 📦 Quantity: " + card.getProduct().get(i).getQuantity() + " 🛒 OrderStatus: " + card.getProduct().get(i).getProducStatus());
                 System.out.println("-----------------------------");
@@ -145,7 +146,7 @@ public class WishlistHandler implements Execute, Creatable, Editable, Viewable, 
             CardProduct cardProduct = checkCardProduct();
             if (cardProduct == null) return;
             card.getProduct().remove(cardProduct);
-            System.out.println("🗑️ Product " + cardProduct.getProduct().getProductName() + " has been removed from your cart.");
+            System.out.println("🗑️ Product " + productController.getcardProduct.getProduct().getProductName() + " has been removed from your cart.");
         }
     }
     

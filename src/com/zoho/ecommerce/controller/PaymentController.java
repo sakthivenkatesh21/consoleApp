@@ -9,7 +9,7 @@ import com.zoho.ecommerce.paymentCreditionals.PaymentProcessing;
 public class PaymentController {
     private static PaymentProcessing paymentProcessing;
 
-// Method  overloaded to handle different payment methods
+// Method overloaded to handle different payment methods
     public static String pay(double amount, String paymentMethod, String credentials) {
         return switch (paymentMethod) {
             case "GPay" -> 

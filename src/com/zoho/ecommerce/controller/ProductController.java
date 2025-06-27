@@ -7,10 +7,11 @@ import com.zoho.ecommerce.model.Seller;
 import com.zoho.ecommerce.model.User;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ProductController {
     private static int idGenerator;
-    private final List<Product> products = DataManager.getDataManager().getProduct();
+    private final Map<Integer,Product> products = DataManager.getDataManager().getProduct();
 
     // Creating product
     public Product createProduct(String productName, String productDescription, double price, int stock, Category category, User loggedInUser) {
@@ -18,7 +19,7 @@ public class ProductController {
             return null;
         }
         Product newProduct = new Product(++idGenerator, productName, productDescription, price, stock, category, (Seller) loggedInUser);
-        products.add(newProduct);
+        products.put(idGenerator,newProduct);
         category.getProduct().add(newProduct);
         ((Seller) loggedInUser).getSellerProduct().add(newProduct);
         return newProduct;
@@ -26,7 +27,7 @@ public class ProductController {
 
     // Updating product
     public boolean updateProduct(int id, String productName, String productDescription, double price, int stock) {
-        Product product = isProductExist(id);
+        Product product = getIsProductExist(id);
         if (product != null) {
             product.setProductName(productName);
             product.setDescription(productDescription);
@@ -40,7 +41,7 @@ public class ProductController {
     // Removing product
     public boolean removeProduct(Product product) {
         if (product != null) {
-            products.remove(product);
+            products.remove(product.getId());
             Category category = product.getCategory();
             if (category != null) {
                 category.getProduct().remove(product);
@@ -51,13 +52,11 @@ public class ProductController {
     }
 
     // Helper methods for update
-    public Product isProductExist(int productId) {
-        for (Product obj : products) {
-            if (obj.getId() == productId) {
-                return obj;
-            }
+    public Product getIsProductExist(int productId) {
+        if(products.isEmpty()){
+            return null;
         }
-        return null;
+        return products.get(productId);
     }
 
     // Check if duplicate product exists for the same seller
@@ -127,7 +126,7 @@ public class ProductController {
     // Reduce stock of product after payment success
     public boolean reduceStock(List<CardProduct> cardProducts) {
         for (CardProduct obj : cardProducts) {
-            Product product = isProductExist(obj.getProduct().getId());
+            Product product = getIsProductExist(obj.getProductId());
             if (product == null) {
                 return false;
             }
@@ -138,7 +137,7 @@ public class ProductController {
 
     // Check if seller product is out of stock
     public boolean getStockIsEmpty(User loggedInUser) {
-        for (Product product : products) {
+        for (Product product : products.values()) {
             if (product.getSeller().getId() == loggedInUser.getId() && product.isAvailableStock()) {
                 return false;
             }
@@ -149,7 +148,7 @@ public class ProductController {
     // Returning the seller out-of-stock products
     public List<Product> getEmptyStockProducts(User loggedInUser) {
         List<Product> emptyStockProducts = new ArrayList<>();
-        for (Product product : products) {
+        for (Product product : products.values()) {
             if (product.getSeller().getId() == loggedInUser.getId() && product.isAvailableStock()) {
                 emptyStockProducts.add(product);
             }

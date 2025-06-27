@@ -5,20 +5,22 @@ import com.zoho.ecommerce.model.Order;
 import com.zoho.ecommerce.model.Product;
 import com.zoho.ecommerce.model.User;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DataManager {
 
     private DataManager() {
         user = new ArrayList<>();
         orders = new ArrayList<>();
-        product = new ArrayList<>();
+        product = new HashMap<>();
         category = new ArrayList<>();
     }
 
     private final List<User> user;
     private final List<Order> orders;
-    private final List<Product> product;
+    private final Map<Integer,Product> product;
     private final List<Category> category;
     private static DataManager dataManager;
 
@@ -37,7 +39,7 @@ public class DataManager {
         return orders;
     }
 
-    public List<Product> getProduct() {
+    public Map<Integer,Product> getProduct() {
         return product;
     }
 
