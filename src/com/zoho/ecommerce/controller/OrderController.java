@@ -9,7 +9,7 @@ public class OrderController {
    
     private static int  idGenerator;
     private  final List<Order> orders = DataManager.getDataManager().getOrders();
-
+    private ProductController productController = new ProductController();
     public  boolean isOrderEmpty() {
         return orders.isEmpty();
     }
@@ -29,11 +29,12 @@ public class OrderController {
     }
     // updating seller's sales and profit and adding product to seller's saled list
     private  void updateSellerSales(List<CardProduct> products) {
-        for(CardProduct product : products) {
-            product.setProducStatus(OrderStatus.CONFIRMED);
-            product.getProduct().getSeller().setSoldItem(product.getProduct().getSeller().getSoldItem() + product.getQuantity());
-            product.getProduct().getSeller().setProfit(product.getProduct().getSeller().getProfit() +(product.getProduct().getPrice()*product.getQuantity()));
-            product.getProduct().getSeller().getSaledList().add(product);
+        for(CardProduct cardProduct : products) {
+            Product product = productController.getIsProductExist(cardProduct.getProductId());
+            cardProduct.setProducStatus(OrderStatus.CONFIRMED);
+            product.getSeller().setSoldItem(product.getSeller().getSoldItem() + cardProduct.getQuantity());
+            product.getSeller().setProfit(product.getSeller().getProfit() +(product.getPrice()*cardProduct.getQuantity()));
+            product.getSeller().getSaledList().add(cardProduct);
         }
     }
     // adding bought product to the Order list

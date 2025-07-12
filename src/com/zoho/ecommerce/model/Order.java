@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.zoho.ecommerce.controller.ProductController;
+
 public class Order {
     private int id;
     private Customer customer;
@@ -116,11 +118,13 @@ public class Order {
         System.out.printf("💳 Payment Method: %s%n", payment);
         System.out.println("🛒 Products      ");
         System.out.println("--------------------------------------------------");
+        ProductController productController = new ProductController();
         for (CardProduct prod : product) {
-            System.out.println("Product Name: " + prod.getProduct().getProductName());
+            Product obj = productController.getIsProductExist(prod.getProductId());
+            System.out.println("Product Name: " +obj.getProductName());
             System.out.println("Quantity: " + prod.getQuantity());
-            System.out.println("Price: $" +  prod.getProduct().getPrice()*prod.getQuantity());
-            System.out.println("Seller Name: " +  prod.getProduct().getSeller().getName()+"  Company: " +  prod.getProduct().getSeller().getCompany());
+            System.out.println("Price: $" +  obj.getPrice()*prod.getQuantity());
+            System.out.println("Seller Name: " + obj.getSeller().getName()+"  Company: " +  obj.getSeller().getCompany());
             System.out.println("--------------------------------------------------");
         }
         System.out.println("--------------------------------------------------");

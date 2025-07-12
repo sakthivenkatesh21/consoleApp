@@ -21,12 +21,5 @@ public class Card {
     public void setProduct(List<CardProduct> product) {
         this.product = product;
     }
-// calculating product price with added quantity
-    public double calculateCardTotal() {
-        double total = 0;
-        for (CardProduct prod : product) {
-            total += prod.getQuantity() * prod.getProduct().getPrice();
-        }
-        return total;
-    }
+
 }

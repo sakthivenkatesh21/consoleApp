@@ -61,7 +61,7 @@ public class ProductController {
 
     // Check if duplicate product exists for the same seller
     public Product isProductExists(String productName, User loggedInUser) {
-        for (Product obj : products) {
+        for (Product obj : products.values()) {
             if (obj.getProductName().equals(productName) && obj.getSeller().getId() == loggedInUser.getId()) {
                 return obj;
             }
@@ -71,7 +71,7 @@ public class ProductController {
 
     public List<Product> isProductExists(String productName) {
         List<Product> searchProducts = new ArrayList<>();
-        for (Product obj : products) {
+        for (Product obj : products.values()) {
             if (obj.getProductName().equals(productName)) {
                 searchProducts.add(obj);
             }
@@ -85,8 +85,8 @@ public class ProductController {
         int removeCount = 0;
         int size = productList.size();
         for (Product obj : productList) {
-            if (products.contains(obj)) {
-                products.remove(obj);
+            if (products.containsKey(obj.getId())) {
+                products.remove(obj.getId());
                 removeCount++;
             }
         }
@@ -108,7 +108,7 @@ public class ProductController {
     // Check if wishcard product contains duplicate or not
     public boolean isProductExistCard(List<CardProduct> product, int id) {
         for (CardProduct obj : product) {
-            if (obj.getProduct().getId() == id) {
+            if (obj.getProductId() == id) {
                 return true;
             }
         }
@@ -116,7 +116,7 @@ public class ProductController {
     }
 
     // Get all products
-    public List<Product> getProducts() {
+    public Map<Integer,Product> getProducts() {
         if (products.isEmpty()) {
             return null;
         }

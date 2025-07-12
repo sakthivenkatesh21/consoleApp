@@ -5,7 +5,6 @@ import com.zoho.ecommerce.controller.ProductController;
 import com.zoho.ecommerce.interfaceController.Execute;
 import com.zoho.ecommerce.interfaceController.Viewable;
 import com.zoho.ecommerce.model.*;
-import com.zoho.ecommerce.model.Customer;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -90,7 +89,7 @@ public class OrderService implements Execute, Viewable {
                     System.out.println("⚠️ No products in the card to checkout.");
                     return;
                 }
-                double cardTotal = card.calculateCardTotal();
+                double cardTotal = wishlistHandler.calculateCardTotal(card);
                 String payment = new PaymentService().paymentProcess( cardTotal);
                 if (payment == null) {
                     System.out.println("❌ Payment failed. Please try again.");
@@ -147,6 +146,5 @@ public class OrderService implements Execute, Viewable {
       System.out.println(((Seller) loggedInUser).getSaledList().get(i));
     }
   }
-
 
 }

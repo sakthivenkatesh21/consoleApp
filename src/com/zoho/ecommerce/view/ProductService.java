@@ -11,6 +11,7 @@ import com.zoho.ecommerce.model.Product;
 import com.zoho.ecommerce.model.User;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ProductService implements Execute, Creatable, Editable, Viewable, Deletable {
@@ -313,7 +314,7 @@ public class ProductService implements Execute, Creatable, Editable, Viewable, D
         int productId = sc.nextInt();
         sc.nextLine();
         if (productId == 0) return false;
-        Product product = productController.isProductExist(productId);
+        Product product = productController.getIsProductExist(productId);
         if (product == null )  {
             System.out.println("❌ Product not found in the selected category.");
             return false;
@@ -330,11 +331,11 @@ public class ProductService implements Execute, Creatable, Editable, Viewable, D
 
     // display All products  
     private  boolean clientView() {
-        List<Product> product = productController.getProducts();
+        Map<Integer,Product> product = productController.getProducts();
         if (product == null) return  false;
         System.out.println("🛍️ Available Products:");
         System.out.println("------------------------------------------------");
-        for (Product obj : product) {
+        for (Product obj: product.values()) {
             System.out.println(obj);
         }
         return true;
@@ -404,7 +405,7 @@ public class ProductService implements Execute, Creatable, Editable, Viewable, D
                 System.out.println("🔙 Exiting to previous menu.");
                 return;
             }
-            Product selectedProduct = productController.isProductExist(productId);
+            Product selectedProduct = productController.getIsProductExist(productId);
             if (selectedProduct == null || !product.contains(selectedProduct)) {
                 System.out.println("❌ Product not found in the selected category.");
                 return;
@@ -425,5 +426,17 @@ public class ProductService implements Execute, Creatable, Editable, Viewable, D
 
     }
 
+    // private void print(Map<Integer,Product> products){
+    //     for(Product product : products.values()){
+    //         System.out.println("\n========== Order Product ==========");
+    //         System.out.println("Name                 : " + product.getProductName());
+    //         System.out.println("Quantity Ordered     : " + quantity);
+    //         System.out.println("Price                : $" + product.getPrice()*getQuantity());
+    //         System.out.println("Date Time Added      : " + getFormattedDate() + " " + getFormattedTime());
+    //         System.out.println("Order Status         : " + producStatus);
+    //         System.out.println("==================================");
+    //     }
+   
+    // }
 }
 

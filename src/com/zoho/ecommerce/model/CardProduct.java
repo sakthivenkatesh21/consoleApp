@@ -59,23 +59,19 @@ public class CardProduct   {
         this.producStatus = producStatus;
     }
 
-// check card quantity exits product stock
-    public boolean canAddToCard() {
-        
-        return product.getStock() >= getQuantity();
-    }
 
-    @Override
-    public String toString() {
-        System.out.println("\n========== Order Product ==========");
-        System.out.println("Name                 : " + product.getProductName());
-        System.out.println("Quantity Ordered     : " + quantity);
-        System.out.println("Price                : $" + product.getPrice()*getQuantity());
-        System.out.println("Date Time Added      : " + getFormattedDate() + " " + getFormattedTime());
-        System.out.println("Order Status         : " + producStatus);
-        System.out.println("==================================");
-        return "";
-    }
+
+    // @Override
+    // public String toString() {
+    //     System.out.println("\n========== Order Product ==========");
+    //     System.out.println("Name                 : " + product.getProductName());
+    //     System.out.println("Quantity Ordered     : " + quantity);
+    //     System.out.println("Price                : $" + product.getPrice()*getQuantity());
+    //     System.out.println("Date Time Added      : " + getFormattedDate() + " " + getFormattedTime());
+    //     System.out.println("Order Status         : " + producStatus);
+    //     System.out.println("==================================");
+    //     return "";
+    // }
 
     // public boolean reStock() {
     //     if(canAddToCard()){
