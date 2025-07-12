@@ -48,10 +48,9 @@ public class Customer extends User {
     
     @Override
     public String toString(){
-        // System.out.println("Client ID : " + getId());
-        System.out.println("Client Name : " + getName());
-        System.out.println("Client Phone : " + getPhone());
-        System.out.println("Client Email : " + getEmail());
+        System.out.println("Customer Name : " + getName());
+        System.out.println("Customer Phone : " + getPhone());
+        System.out.println("Customer Email : " + getEmail());
         System.out.println("Address : " + address);
         
         return "";

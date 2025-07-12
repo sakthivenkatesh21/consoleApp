@@ -4,7 +4,14 @@ import src.com.zoho.ecommerce.controller.OrderController;
 import src.com.zoho.ecommerce.controller.ProductController;
 import src.com.zoho.ecommerce.interfaceController.Execute;
 import src.com.zoho.ecommerce.interfaceController.Viewable;
-import src.com.zoho.ecommerce.model.*;
+import src.com.zoho.ecommerce.model.Card;
+import src.com.zoho.ecommerce.model.CardProduct;
+import src.com.zoho.ecommerce.model.Customer;
+import src.com.zoho.ecommerce.model.Order;
+import src.com.zoho.ecommerce.model.OrderStatus;
+import src.com.zoho.ecommerce.model.Product;
+import src.com.zoho.ecommerce.model.Seller;
+import src.com.zoho.ecommerce.model.User;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -16,7 +23,7 @@ public class OrderService implements Execute, Viewable {
 
   private final int CUSTOMER = 1;
   private final int SELLER = 2;
- 
+
   public OrderService(User loggedInUser) {
     this.loggedInUser = loggedInUser;
   }
@@ -79,7 +86,7 @@ public class OrderService implements Execute, Viewable {
 
         switch (choice) {
             case "NO":
-            case "N" :  
+            case "N" :
                  wishlistHandler.delete();
             case "YES":
             case  "Y" :
@@ -129,7 +136,7 @@ public class OrderService implements Execute, Viewable {
     }
     for (int i = 0; i < ((Customer) loggedInUser).getPreviousOrderProduct().size(); i++) {
       System.out.println("📦 Order " + (i + 1) );
-      System.out.println(((Customer) loggedInUser).getPreviousOrderProduct().get(i));
+      printOrder(((Customer) loggedInUser).getPreviousOrderProduct().get(i));
     }
   }
 
@@ -145,6 +152,33 @@ public class OrderService implements Execute, Viewable {
       System.out.println("📦 Order Sold " + (i + 1) );
       System.out.println(((Seller) loggedInUser).getSaledList().get(i));
     }
+  }
+
+  private void printOrder(Order order){
+
+        System.out.println("--------------------------------------------------");
+        System.out.println("            🧾 Order Summary                      ");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("📦 Order ID      : %s%n", order.getId());
+        System.out.printf("👤 Client        : %s%n",order.getCustomer().getName());
+        System.out.printf("📍 Address       : %s%n", order.getAddress());
+        System.out.printf("🕒 Order Time    : %s %s%n", order.getFormattedDate(), order.getFormattedTime());
+        System.out.printf("📌 Status        : %s%n", order.getStatus());
+        System.out.printf("💰 Total Amount  : $%.2f%n", order.getTotal());
+        System.out.printf("💳 Payment Method: %s%n", order.getPayment());
+        System.out.println("🛒 Products      ");
+        System.out.println("--------------------------------------------------");
+
+        ProductController productController = new ProductController();
+        for (CardProduct prod : order.getProduct()) {
+            Product obj = productController.getIsProductExist(prod.getProductId());
+            System.out.println("Product Name: " +obj.getProductName());
+            System.out.println("Quantity: " + prod.getQuantity());
+            System.out.println("Price: $" +  obj.getPrice()*prod.getQuantity());
+            System.out.println("Seller Name: " + obj.getSeller().getName()+"  Company: " +  obj.getSeller().getCompany());
+            System.out.println("--------------------------------------------------");
+        }
+        System.out.println("--------------------------------------------------");
   }
 
 }
