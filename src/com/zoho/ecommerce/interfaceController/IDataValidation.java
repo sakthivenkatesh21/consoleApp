@@ -1,4 +1,4 @@
-package com.zoho.ecommerce.interfaceController;
+package src.com.zoho.ecommerce.interfaceController;
 
 public interface IDataValidation {
         String name(String info);

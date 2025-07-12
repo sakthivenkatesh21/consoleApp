@@ -1,8 +1,8 @@
-package com.zoho.ecommerce.view;
+package src.com.zoho.ecommerce.view;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import com.zoho.ecommerce.controller.PaymentController;
+import src.com.zoho.ecommerce.controller.PaymentController;
 
 public class PaymentService {
     private  final Scanner sc =  GlobalScanner.getScanner();

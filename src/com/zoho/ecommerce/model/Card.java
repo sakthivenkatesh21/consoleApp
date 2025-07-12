@@ -1,4 +1,4 @@
-package com.zoho.ecommerce.model;
+package src.com.zoho.ecommerce.model;
 
 import java.util.ArrayList;
 import java.util.List;

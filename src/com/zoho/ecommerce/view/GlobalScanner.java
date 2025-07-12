@@ -1,4 +1,4 @@
-package com.zoho.ecommerce.view;
+package src.com.zoho.ecommerce.view;
 
 import java.util.Scanner;
 

@@ -1,9 +1,9 @@
-package com.zoho.ecommerce.controller;
+package src.com.zoho.ecommerce.controller;
 
-import com.zoho.ecommerce.model.Category;
-import com.zoho.ecommerce.model.Order;
-import com.zoho.ecommerce.model.Product;
-import com.zoho.ecommerce.model.User;
+import src.com.zoho.ecommerce.model.Category;
+import src.com.zoho.ecommerce.model.Order;
+import src.com.zoho.ecommerce.model.Product;
+import src.com.zoho.ecommerce.model.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

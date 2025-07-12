@@ -1,6 +1,6 @@
-package com.zoho.ecommerce.controller;
+package src.com.zoho.ecommerce.controller;
 
-import com.zoho.ecommerce.model.User;
+import src.com.zoho.ecommerce.model.User;
 import java.util.List;
 
 public class SignIn {

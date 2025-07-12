@@ -1,12 +1,12 @@
-package com.zoho.ecommerce.view;
+package src.com.zoho.ecommerce.view;
 
-import com.zoho.ecommerce.controller.UserController;
-import com.zoho.ecommerce.interfaceController.Editable;
-import com.zoho.ecommerce.interfaceController.Execute;
-import com.zoho.ecommerce.interfaceController.Viewable;
-import com.zoho.ecommerce.model.Customer;
-import com.zoho.ecommerce.model.Seller;
-import com.zoho.ecommerce.model.User;
+import src.com.zoho.ecommerce.controller.UserController;
+import src.com.zoho.ecommerce.interfaceController.Editable;
+import src.com.zoho.ecommerce.interfaceController.Execute;
+import src.com.zoho.ecommerce.interfaceController.Viewable;
+import src.com.zoho.ecommerce.model.Customer;
+import src.com.zoho.ecommerce.model.Seller;
+import src.com.zoho.ecommerce.model.User;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 

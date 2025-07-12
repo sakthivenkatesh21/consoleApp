@@ -1,11 +1,11 @@
-package com.zoho.ecommerce.model;
+package src.com.zoho.ecommerce.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zoho.ecommerce.controller.ProductController;
+import src.com.zoho.ecommerce.controller.ProductController;
 
 public class Order {
     private int id;

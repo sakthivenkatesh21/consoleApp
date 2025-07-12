@@ -1,9 +1,9 @@
-package com.zoho.ecommerce.controller;
+package src.com.zoho.ecommerce.controller;
 
 import java.util.List;
-import com.zoho.ecommerce.model.Customer;
-import com.zoho.ecommerce.model.Seller;
-import com.zoho.ecommerce.model.User;
+import src.com.zoho.ecommerce.model.Customer;
+import src.com.zoho.ecommerce.model.Seller;
+import src.com.zoho.ecommerce.model.User;
 
 public class UserController {
     private static int idGenerator;

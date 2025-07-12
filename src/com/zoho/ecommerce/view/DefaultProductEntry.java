@@ -1,12 +1,12 @@
-package com.zoho.ecommerce.view;
+package src.com.zoho.ecommerce.view;
 
 
-import com.zoho.ecommerce.controller.CategoryController;
-import com.zoho.ecommerce.controller.DataManager;
-import com.zoho.ecommerce.controller.ProductController;
-import com.zoho.ecommerce.controller.UserController;
-import com.zoho.ecommerce.model.Category;
-import com.zoho.ecommerce.model.User;
+import src.com.zoho.ecommerce.controller.CategoryController;
+import src.com.zoho.ecommerce.controller.DataManager;
+import src.com.zoho.ecommerce.controller.ProductController;
+import src.com.zoho.ecommerce.controller.UserController;
+import src.com.zoho.ecommerce.model.Category;
+import src.com.zoho.ecommerce.model.User;
 import java.util.List;
 
 final class DefaultProductEntry {

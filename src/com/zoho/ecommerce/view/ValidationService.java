@@ -1,6 +1,6 @@
-package com.zoho.ecommerce.view;
+package src.com.zoho.ecommerce.view;
 
-import com.zoho.ecommerce.interfaceController.IDataValidation;
+import src.com.zoho.ecommerce.interfaceController.IDataValidation;
 import java.util.Scanner;
 
 public class ValidationService implements IDataValidation {

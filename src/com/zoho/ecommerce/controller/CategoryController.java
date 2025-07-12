@@ -1,6 +1,6 @@
-package com.zoho.ecommerce.controller;
+package src.com.zoho.ecommerce.controller;
 
-import com.zoho.ecommerce.model.Category;
+import src.com.zoho.ecommerce.model.Category;
 import java.util.List;
 
 public class CategoryController {

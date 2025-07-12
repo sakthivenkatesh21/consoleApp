@@ -1,7 +1,7 @@
-package com.zoho.ecommerce.controller;
+package src.com.zoho.ecommerce.controller;
 
-import com.zoho.ecommerce.model.*;
-import com.zoho.ecommerce.model.Customer;
+import src.com.zoho.ecommerce.model.*;
+import src.com.zoho.ecommerce.model.Customer;
 
 import java.util.List;
 

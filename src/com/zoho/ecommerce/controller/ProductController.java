@@ -1,10 +1,10 @@
-package com.zoho.ecommerce.controller;
+package src.com.zoho.ecommerce.controller;
 
-import com.zoho.ecommerce.model.CardProduct;
-import com.zoho.ecommerce.model.Category;
-import com.zoho.ecommerce.model.Product;
-import com.zoho.ecommerce.model.Seller;
-import com.zoho.ecommerce.model.User;
+import src.com.zoho.ecommerce.model.CardProduct;
+import src.com.zoho.ecommerce.model.Category;
+import src.com.zoho.ecommerce.model.Product;
+import src.com.zoho.ecommerce.model.Seller;
+import src.com.zoho.ecommerce.model.User;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

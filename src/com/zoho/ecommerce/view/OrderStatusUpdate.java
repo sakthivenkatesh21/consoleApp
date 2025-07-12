@@ -1,7 +1,7 @@
-package com.zoho.ecommerce.view;
+package src.com.zoho.ecommerce.view;
 
-import com.zoho.ecommerce.model.Order;
-import com.zoho.ecommerce.model.OrderStatus;
+import src.com.zoho.ecommerce.model.Order;
+import src.com.zoho.ecommerce.model.OrderStatus;
 
 class OrderStatusUpdate {
 

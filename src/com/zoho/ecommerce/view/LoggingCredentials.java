@@ -1,8 +1,8 @@
-package com.zoho.ecommerce.view;
+package src.com.zoho.ecommerce.view;
 
 import java.util.Scanner;
-import com.zoho.ecommerce.controller.SignIn;
-import com.zoho.ecommerce.model.User;
+import src.com.zoho.ecommerce.controller.SignIn;
+import src.com.zoho.ecommerce.model.User;
 
 public class LoggingCredentials {
     private User logInUser;

@@ -1,6 +1,6 @@
-package com.zoho.ecommerce.main;
+package src.com.zoho.ecommerce.main;
 
-import com.zoho.ecommerce.view.Navigation;
+import src.com.zoho.ecommerce.view.Navigation;
 
 public class Ecommerce {
     public static void main(String[] args) {

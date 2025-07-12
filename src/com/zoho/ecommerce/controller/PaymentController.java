@@ -1,10 +1,10 @@
-package com.zoho.ecommerce.controller;
+package src.com.zoho.ecommerce.controller;
 
-import com.zoho.ecommerce.internal.Gpay;
-import com.zoho.ecommerce.internal.MayPay;
-import com.zoho.ecommerce.internal.Paytm;
-import com.zoho.ecommerce.paymentCreditionals.IPaymentGateway;
-import com.zoho.ecommerce.paymentCreditionals.PaymentProcessing;
+import src.com.zoho.ecommerce.internal.Gpay;
+import src.com.zoho.ecommerce.internal.MayPay;
+import src.com.zoho.ecommerce.internal.Paytm;
+import src.com.zoho.ecommerce.paymentCreditionals.IPaymentGateway;
+import src.com.zoho.ecommerce.paymentCreditionals.PaymentProcessing;
 
 public class PaymentController {
     private static PaymentProcessing paymentProcessing;

@@ -1,6 +1,6 @@
-package com.zoho.ecommerce.internal;
+package src.com.zoho.ecommerce.internal;
 
-import com.zoho.ecommerce.paymentCreditionals.IPaymentGateway;
+import src.com.zoho.ecommerce.paymentCreditionals.IPaymentGateway;
 
 public class Paytm implements IPaymentGateway {
     private final double amount;
