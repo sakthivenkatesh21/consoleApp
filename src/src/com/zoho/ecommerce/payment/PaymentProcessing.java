@@ -1,4 +1,6 @@
-package src.com.zoho.ecommerce.paymentCreditionals;
+package src.com.zoho.ecommerce.payment;
+
+import src.com.zoho.ecommerce.interfaceController.IPaymentGateway;
 
 public class PaymentProcessing {
     private final IPaymentGateway iPaymentGateway;
@@ -7,9 +9,9 @@ public class PaymentProcessing {
         this.iPaymentGateway = iPaymentGateway;
     }
 
-    public IPaymentGateway getIPaymentGateway() {
-        return iPaymentGateway;
-    }
+//    public IPaymentGateway getIPaymentGateway() {
+//        return iPaymentGateway;
+//    }
 
     public String processPayment() {
         iPaymentGateway.processPayment();

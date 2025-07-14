@@ -1,8 +1,8 @@
-package src.com.zoho.ecommerce.internal;
+package src.com.zoho.ecommerce.payment;
 
-import src.com.zoho.ecommerce.paymentCreditionals.IPaymentGateway;
+import src.com.zoho.ecommerce.interfaceController.IPaymentGateway;
 
-public class MayPay implements IPaymentGateway {
+public  class MayPay implements IPaymentGateway {
 
     private final double amount;
     private final String paymentMethod;

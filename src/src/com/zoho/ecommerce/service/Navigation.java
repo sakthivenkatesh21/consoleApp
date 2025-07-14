@@ -1,4 +1,4 @@
-package src.com.zoho.ecommerce.view;
+package src.com.zoho.ecommerce.service;
 
 import src.com.zoho.ecommerce.interfaceController.Execute;
 import src.com.zoho.ecommerce.model.User;
@@ -72,12 +72,12 @@ public  class Navigation {
                 sc.nextLine();
                 switch (choice) {
                     case 1 -> operation(new UserService(loggedInUser));
-                    case 2 -> operation(new CategoryService(loggedInUser));
+                    case 2 -> operation(new ProductCategoryService(loggedInUser));
                     case 3 -> operation(new ProductService(loggedInUser));
                     case 4 -> operation( new OrderService(loggedInUser));
                     case 5 ->{
                         if(loggedInUser.getRole()==CUSTOMER)
-                            operation(new WishlistHandler(loggedInUser));
+                            operation(new ShoppingCardService(loggedInUser));
                         else System.out.println("Invalid Choice !");
                     }
                     case 0 -> {
@@ -97,8 +97,8 @@ public  class Navigation {
     }
 
     private void operation(Execute execute) {
-        UserAccess userAccess = new UserAccess(execute);
-        userAccess.operation();
+//        UserAccess userAccess = new UserAccess(execute);
+        execute.operation();
     }
 
 }

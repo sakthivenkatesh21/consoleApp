@@ -1,12 +1,12 @@
-package src.com.zoho.ecommerce.view;
+package src.com.zoho.ecommerce.util;
 
-import src.com.zoho.ecommerce.interfaceController.IDataValidation;
+import src.com.zoho.ecommerce.service.GlobalScanner;
+
 import java.util.Scanner;
 
-public class ValidationService implements IDataValidation {
+public final class Validation   {
 	private final Scanner sc = GlobalScanner.getScanner();
 
-	@Override
 	public String name(String info) {
 		String name;
 		while (true) {
@@ -20,7 +20,6 @@ public class ValidationService implements IDataValidation {
 		}
 	}
 
-	@Override
 	public String email(String info) {
 		String email;
 		while (true) {
@@ -34,7 +33,6 @@ public class ValidationService implements IDataValidation {
 		}
 	}
 
-	@Override
 	public String phone(String info) {
 		String mobile;
 		while (true) {
@@ -48,7 +46,6 @@ public class ValidationService implements IDataValidation {
 		}
 	}
 
-	@Override
 	public String password(String info) {
 		String pass;
 		while (true) {
@@ -65,7 +62,6 @@ public class ValidationService implements IDataValidation {
 		}
 	}
 
-	@Override
 	public String address(String info) {
 		String address;
 		while (true) {
@@ -79,7 +75,6 @@ public class ValidationService implements IDataValidation {
 		}
 	}
 
-    @Override
 	public String gender(String info) {
 		System.out.println("1️⃣ Male\n2️⃣ Female\n3️⃣ Other");
 		System.out.print(info);

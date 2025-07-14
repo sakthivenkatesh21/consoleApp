@@ -1,4 +1,4 @@
-package src.com.zoho.ecommerce.model;
+package src.com.zoho.ecommerce.util;
 
 public enum OrderStatus {
     PENDING("⏳ Pending"),

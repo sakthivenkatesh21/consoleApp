@@ -1,8 +1,10 @@
-package src.com.zoho.ecommerce.view;
+package src.com.zoho.ecommerce.service;
 
-import java.util.Scanner;
 import src.com.zoho.ecommerce.controller.SignIn;
 import src.com.zoho.ecommerce.model.User;
+import src.com.zoho.ecommerce.service.impl.UserServiceImpl;
+
+import java.util.Scanner;
 
 public class LoggingCredentials {
     private User logInUser;
@@ -25,7 +27,7 @@ public class LoggingCredentials {
     }
 
     public void signUp(Navigation navigation) {
-        logInUser  = new UserService(logInUser).add();
+        logInUser  = new UserServiceImpl(logInUser).add();
         if (logInUser != null) {
             sigIn(navigation);
         } else {

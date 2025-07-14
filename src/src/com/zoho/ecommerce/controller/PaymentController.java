@@ -1,16 +1,16 @@
 package src.com.zoho.ecommerce.controller;
 
-import src.com.zoho.ecommerce.internal.Gpay;
-import src.com.zoho.ecommerce.internal.MayPay;
-import src.com.zoho.ecommerce.internal.Paytm;
-import src.com.zoho.ecommerce.paymentCreditionals.IPaymentGateway;
-import src.com.zoho.ecommerce.paymentCreditionals.PaymentProcessing;
+import src.com.zoho.ecommerce.payment.Gpay;
+import src.com.zoho.ecommerce.payment.MayPay;
+import src.com.zoho.ecommerce.payment.Paytm;
+import src.com.zoho.ecommerce.interfaceController.IPaymentGateway;
+import src.com.zoho.ecommerce.payment.PaymentProcessing;
 
 public class PaymentController {
-    private static PaymentProcessing paymentProcessing;
+   ;
 
 // Method overloaded to handle different payment methods
-    public static String pay(double amount, String paymentMethod, String credentials) {
+    public  String pay(double amount, String paymentMethod, String credentials) {
         return switch (paymentMethod) {
             case "GPay" -> 
                  process(new Gpay(amount, paymentMethod, credentials));
@@ -21,12 +21,12 @@ public class PaymentController {
         };
     }
 // common logic for pay method to process payment
-    private static String process(IPaymentGateway paymentGateway) {
-        paymentProcessing = new PaymentProcessing(paymentGateway);
+    private  String process(IPaymentGateway paymentGateway) {
+        PaymentProcessing paymentProcessing = new PaymentProcessing(paymentGateway);
         return paymentProcessing.processPayment();
     }
 
-    public static String pay(double amount, String paymentMethod, String credentials, String viaMode) {
+    public  String pay(double amount, String paymentMethod, String credentials, String viaMode) {
         return switch (viaMode) {
             case "Upi" -> 
                 process(new MayPay(amount, viaMode, credentials));

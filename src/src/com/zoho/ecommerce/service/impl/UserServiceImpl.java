@@ -1,16 +1,15 @@
-package src.com.zoho.ecommerce.view;
+package src.com.zoho.ecommerce.service.impl;
 
 import src.com.zoho.ecommerce.controller.UserController;
-import src.com.zoho.ecommerce.interfaceController.Editable;
-import src.com.zoho.ecommerce.interfaceController.Execute;
-import src.com.zoho.ecommerce.interfaceController.Viewable;
 import src.com.zoho.ecommerce.model.Customer;
 import src.com.zoho.ecommerce.model.Seller;
 import src.com.zoho.ecommerce.model.User;
+import src.com.zoho.ecommerce.service.GlobalScanner;
+import src.com.zoho.ecommerce.util.Validation;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class UserService implements Execute, Editable, Viewable {
+public class UserServiceImpl    {
     private final User loggedInUser ;
     private final Scanner sc = GlobalScanner.getScanner();
     private final UserController userController = new UserController();
@@ -18,70 +17,13 @@ public class UserService implements Execute, Editable, Viewable {
     private final int CUSTOMER =1;
     private final int SELLER   =2;
 
-    public UserService(User loggedInUser) {
+    public UserServiceImpl(User loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
-    @Override
-    public void operation() {
-        while (true) {
-            System.out.println("====================================");
-            System.out.println("         🛠️ User Management Menu       ");
-            System.out.println("====================================");
-            System.out.println("1️⃣ View Info");
-            System.out.println("2️⃣ Update Info");
-            System.out.println("0️⃣ Exit");
-            System.out.println("====================================");
-            System.out.print("👉 Enter your choice: ");
-            try {
-                int choice = sc.nextInt();
-                sc.nextLine();
 
-                switch (choice) {
-                    case 1 -> view();
-                    case 2 -> update();
-                    case 0 -> {
-                        System.out.println("👋 Exiting User Management.");
-                        return;
-                    }
-                    default -> System.out.println("❌ Invalid choice, please try again.");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("❌ Invalid input. Please enter a valid number.");
-                sc.nextLine();
-            } catch (Exception e) {
-                System.out.println("❌ An unexpected error occurred: " + e.getMessage());
-            }
-        }
-    }
 
-    @Override
-    public void view() {
-        String role = loggedInUser.getRole() == CUSTOMER ? "👤 Customer" : "🏢 Seller";
-        System.out.println("""
-                ╔═══════════════════════════════════════════════════╗
-                |                📋 USER INFORMATION                |  
-                ╚═══════════════════════════════════════════════════╝
-                """);
-
-        System.out.printf("🔑 Role              : %-30s%n", role);
-        System.out.printf("🧑 Name              : %-30s%n", loggedInUser.getName());
-        System.out.printf("📧 Email             : %-30s%n", loggedInUser.getEmail());
-        System.out.printf("📱 Phone Number      : %-30s%n", loggedInUser.getPhone());
-        System.out.printf("🏠 Address           : %-30s%n", (loggedInUser.getRole() == CUSTOMER ? ((Customer) loggedInUser).getAddress() : ((Seller) loggedInUser).getCompanyAddress()));
-        // System.out.printf("🆔 User ID           : %-30s%n", loggedInUser.getId());
-
-        if (loggedInUser.getRole() == SELLER) {
-            Seller seller = (Seller) loggedInUser;
-            System.out.printf("💰 Profit Earned     : ₹%-29.2f%n", seller.getProfit());
-            System.out.printf("📦 Products Sold     : %-30d%n", seller.getSoldItem());
-        }
-
-        System.out.println("═════════════════════════════════════════════════════════");
-    }
-
-    @Override
     public void update() {
-        ValidationService check = new ValidationService();
+        Validation check = new Validation();
         while (true) {
             System.out.println("""
                     ╔═══════════════════════════════════════════════════╗
@@ -168,7 +110,7 @@ public class UserService implements Execute, Editable, Viewable {
         }
     }
     public User add(){
-        ValidationService check = new ValidationService();
+        Validation check = new Validation();
         String name = check.name("🧑 Enter your Name :");
         String phone = isPhoneExists(check.phone("📱 Enter a valid Phone number: "), check,loggedInUser);
         String email = isEmailExists(check.email("📧 Enter a valid Email : "), check,loggedInUser);
@@ -194,7 +136,7 @@ public class UserService implements Execute, Editable, Viewable {
     }
 
 // check duplicate Email exists
-    private  String isEmailExists(String email, ValidationService check, User loggedInUser) {
+    private  String isEmailExists(String email, Validation check, User loggedInUser) {
         while (userController.isMailExists(email,loggedInUser)) {
             System.out.println("❌ Email already exists. Please try again with a different email.");
             email = check.email("📧 Enter a valid email address: ");
@@ -202,9 +144,9 @@ public class UserService implements Execute, Editable, Viewable {
         return email;
     }
 // checking duplicate Phone number exists
-    private  String isPhoneExists(String phone, ValidationService check, User loggedInUser) {
+    private  String isPhoneExists(String phone, Validation check, User loggedInUser) {
         while (userController.isPhoneExists(phone, loggedInUser)) {
-            
+
             System.out.println("❌ Phone number already exists. Please try again with a different number.");
             phone = check.phone("📱 Enter a valid phone number: ");
         }

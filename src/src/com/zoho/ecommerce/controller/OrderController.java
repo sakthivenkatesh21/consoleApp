@@ -4,7 +4,7 @@ import src.com.zoho.ecommerce.model.Card;
 import src.com.zoho.ecommerce.model.CardProduct;
 import src.com.zoho.ecommerce.model.Customer;
 import src.com.zoho.ecommerce.model.Order;
-import src.com.zoho.ecommerce.model.OrderStatus;
+import src.com.zoho.ecommerce.util.OrderStatus;
 import src.com.zoho.ecommerce.model.Product;
 import src.com.zoho.ecommerce.model.User;
 
@@ -15,10 +15,12 @@ public class OrderController {
    
     private static int  idGenerator;
     private  final List<Order> orders = DataManager.getDataManager().getOrders();
-    private ProductController productController = new ProductController();
+    private final ProductController productController = new ProductController();
+
     public  boolean isOrderEmpty() {
         return orders.isEmpty();
     }
+
 // Order creation
     public   Order  createOrder(Card card, double amount,String payment, User loggedInUser) {
        
@@ -44,10 +46,8 @@ public class OrderController {
         }
     }
     // adding bought product to the Order list
-    private   List<CardProduct>  productOrder(List<CardProduct> orderProducts, List<CardProduct> cardProducts) {
-        for (CardProduct product : cardProducts)
-                orderProducts.add(product);
-        return orderProducts;
+    private   void  productOrder(List<CardProduct> orderProducts, List<CardProduct> cardProducts) {
+        orderProducts.addAll(cardProducts);
     }
 
 }

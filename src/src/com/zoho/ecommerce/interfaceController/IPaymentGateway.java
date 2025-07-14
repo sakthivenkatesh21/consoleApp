@@ -1,4 +1,4 @@
-package src.com.zoho.ecommerce.paymentCreditionals;
+package src.com.zoho.ecommerce.interfaceController;
 
 public interface IPaymentGateway {
 

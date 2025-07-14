@@ -1,5 +1,7 @@
 package src.com.zoho.ecommerce.model;
 
+import src.com.zoho.ecommerce.util.OrderStatus;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

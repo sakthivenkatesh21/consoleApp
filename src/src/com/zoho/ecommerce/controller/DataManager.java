@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DataManager {
+public final  class DataManager {
 
     private DataManager() {
         user = new ArrayList<>();

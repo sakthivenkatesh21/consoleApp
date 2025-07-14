@@ -1,11 +1,13 @@
-package src.com.zoho.ecommerce.view;
+package src.com.zoho.ecommerce.service;
+
+import src.com.zoho.ecommerce.service.impl.PaymentServiceImpl;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import src.com.zoho.ecommerce.controller.PaymentController;
 
 public class PaymentService {
     private  final Scanner sc =  GlobalScanner.getScanner();
+    private  final PaymentServiceImpl paymentServiceImpl = new PaymentServiceImpl();
 
     public  String paymentProcess( double amount) {
         System.out.println("💰 Your total amount is: " + amount);
@@ -16,16 +18,11 @@ public class PaymentService {
             sc.nextLine();
             switch (paymentOption) {
                 case 1 -> {
-                    System.out.println("🔄 Processing payment through Paytm...");
-                    System.out.println("📱 Enter your Paytm Wallet ID:");
-                    String walletId = sc.nextLine();
-                    return PaymentController.pay(amount, "Paytm", walletId);
+                    return paymentServiceImpl.paytm(amount);
                 }
                 case 2 -> {
-                    System.out.println("🔄 Processing payment through GPay...");
-                    System.out.println("📱 Enter your GPay ID:");
-                    String gpayId = sc.nextLine();
-                    return PaymentController.pay(amount, "GPay", gpayId);
+                    return paymentServiceImpl.gPay(amount);
+
                 }
                 case 3 -> {
                     return maybepay( amount);
@@ -52,14 +49,12 @@ public class PaymentService {
             sc.nextLine();
             switch (paymentMode) {
                 case 1 -> {
-                    System.out.println("📱 Enter your UPI ID:");
-                    String upiId = sc.nextLine();
-                    return PaymentController.pay(amount, "MAYPAY", upiId, "Upi");
+                    return paymentServiceImpl.upiId(amount);
+
                 }
                 case 2 -> {
-                    System.out.println("🏦 Enter your bank details for NetBanking ID:");
-                    String netBanking = sc.nextLine();
-                    return PaymentController.pay(amount, "MAYPAY", netBanking, "NetBanking");
+                    return paymentServiceImpl.netBanking(amount);
+
                 }
                 default -> {
                     System.out.println("❌ Invalid payment mode selected. Please try again.");
