@@ -1,7 +1,7 @@
 package src.com.zoho.ecommerce.view;
 
 import src.com.zoho.ecommerce.controller.ProductController;
-
+import src.com.zoho.ecommerce.exception.ProductOperationException;
 import src.com.zoho.ecommerce.model.Product;
 import src.com.zoho.ecommerce.model.User;
 
@@ -27,11 +27,14 @@ public class ProductView   {
         this.loggedInUser = loggedInUser;
     }
 
-
-    public void view() {
+    public void view() throws ProductOperationException {
         ProductImpl productServiceImpl = new ProductImpl(loggedInUser);
         if (loggedInUser.getRole() == SELLER) {
-            new CategoryView(loggedInUser).viewCategoryForProducts(sc);
+            try {
+                new CategoryView(loggedInUser).viewCategoryForProducts(sc);
+            } catch (Exception e) {
+                throw new ProductOperationException("Error while viewing categories for products.", e);
+            }
         }
         else {
             while (true) {
@@ -52,8 +55,8 @@ public class ProductView   {
                     int choice = sc.nextInt();
                     sc.nextLine();
                     switch (choice) {
-                        case 1 ->  productServiceImpl.search();
-                        case 2 ->  productServiceImpl.addingProductToCart();
+                        case 1 -> productServiceImpl.search();
+                        case 2 -> productServiceImpl.addingProductToCart();
                         case 0 -> {
                             System.out.println("🔙 Exiting to previous menu.");
                             return;
@@ -63,8 +66,10 @@ public class ProductView   {
                 } catch (InputMismatchException e) {
                     System.out.println("❌ Invalid input. Please enter a number.");
                     sc.nextLine();
+                } catch (ProductOperationException e) {
+                    throw e;
                 } catch (Exception e) {
-                    System.out.println("❌ An unexpected error occurred: " + e.getMessage());
+                    throw e;
                 }
             }
         }
@@ -72,9 +77,9 @@ public class ProductView   {
 
 
     // display All products  
-    private  boolean clientView() {
+    private boolean clientView() throws ProductOperationException {
         Map<Integer,Product> product = productController.getProducts();
-        if (product == null) return  false;
+        if (product == null) return false;
         System.out.println("🛍️ Available Products:");
         System.out.println("------------------------------------------------");
         for (Product obj: product.values()) {
@@ -83,17 +88,15 @@ public class ProductView   {
         return true;
     }
 
-// view the out-of-stock product
-    public void  viewReStock(List<Product> product) {
+    // view the out-of-stock product
+    public void viewReStock(List<Product> product) throws ProductOperationException {
         System.out.println("📦 Products available for restocking:");
         System.out.println("------------------------------------------------");
         for (Product obj : product) {
            System.out.println(" Product Id :"+obj.getId() +"Product Name :"+ obj.getProductName() +"  Stock :"+ obj.getStock());
         }
         System.out.println("------------------------------------------------");
-
-    }
-
+    }   
     // private int viewMenu(){
     //     System.out.println("------------------------------------------------");
     //     System.out.println("Choose an option:");

@@ -1,6 +1,7 @@
 package src.com.zoho.ecommerce.service;
 
 import src.com.zoho.ecommerce.controller.ProductController;
+import src.com.zoho.ecommerce.exception.ProductOperationException;
 import src.com.zoho.ecommerce.interfaceController.Execute;
 import src.com.zoho.ecommerce.model.Product;
 import src.com.zoho.ecommerce.model.User;
@@ -27,7 +28,7 @@ public class ProductService implements Execute {
 
 
     @Override
-    public void operation( ) {
+    public void operation() {
         ProductImpl productServiceImpl = new ProductImpl(loggedInUser);
         ProductView productView = new ProductView(loggedInUser);
         while (true) {
@@ -37,12 +38,12 @@ public class ProductService implements Execute {
             if (loggedInUser.getRole() == CUSTOMER) {
                 System.out.println("1. 🔍 View Products");
                 System.out.println("0. 🔙 Back (Exit)");
-            }else if(loggedInUser.getRole() == SELLER) {
+            } else if (loggedInUser.getRole() == SELLER) {
                 System.out.println("1. ➕ Add Product");
                 System.out.println("2. 🔍 View Product");
                 System.out.println("3. ✏️ Update Product");
                 System.out.println("4. ❌ Remove Product");
-                if(!productController.getStockIsEmpty(loggedInUser))System.out.println("5. 📦 Re Stock");
+                if (!productController.getStockIsEmpty(loggedInUser)) System.out.println("5. 📦 Re Stock");
                 System.out.println("0. 🔙 Back (Exit)");
             }
             System.out.println("=========================================");
@@ -53,15 +54,49 @@ public class ProductService implements Execute {
 
                 switch (choice) {
                     case 1 -> {
-                        if (loggedInUser.getRole() == CUSTOMER)
-                            productView.view();
-                        else
-                            productServiceImpl.add();
+                        try {
+                            if (loggedInUser.getRole() == CUSTOMER)
+                                productView.view();
+                            else
+                                productServiceImpl.add();
+                        } catch (ProductOperationException e) {
+                            System.out.println("❌ Product operation failed: " + e.getMessage());
+                        }
                     }
-                    case 2 -> productView.view();
-                    case 3 -> {if(loggedInUser.getRole() ==SELLER)productServiceImpl.update();}
-                    case 4 -> {if(loggedInUser.getRole() ==SELLER)productServiceImpl.delete();}
-                    case 5 -> {if(loggedInUser.getRole() == SELLER)reStock(productServiceImpl,productView);}
+                    case 2 -> {
+                        try {
+                            productView.view();
+                        } catch (ProductOperationException e) {
+                            System.out.println("❌ Product operation failed: " + e.getMessage());
+                        }
+                    }
+                    case 3 -> {
+                        if (loggedInUser.getRole() == SELLER) {
+                            try {
+                                productServiceImpl.update();
+                            } catch (ProductOperationException e) {
+                                System.out.println("❌ Product operation failed: " + e.getMessage());
+                            }
+                        }
+                    }
+                    case 4 -> {
+                        if (loggedInUser.getRole() == SELLER) {
+                            try {
+                                productServiceImpl.delete();
+                            } catch (ProductOperationException e) {
+                                System.out.println("❌ Product operation failed: " + e.getMessage());
+                            }
+                        }
+                    }
+                    case 5 -> {
+                        if (loggedInUser.getRole() == SELLER) {
+                            try {
+                                reStock(productServiceImpl, productView);
+                            } catch (ProductOperationException e) {
+                                System.out.println("❌ Product operation failed: " + e.getMessage());
+                            }
+                        }
+                    }
                     case 0 -> {
                         System.out.println("🔙 Exiting to previous menu.");
                         return;
@@ -78,30 +113,41 @@ public class ProductService implements Execute {
     }
 
     // restock the Seller product
-    private void reStock(ProductImpl productServiceImpl, ProductView productView) {
+    private void reStock(ProductImpl productServiceImpl, ProductView productView) throws ProductOperationException {
         List<Product> product = productController.getEmptyStockProducts(loggedInUser);
-        while(true){
+        while (true) {
             System.out.println("1. 📦 Restock  Products\n2.View ReStock \n0.Exit");
             System.out.print("👉 Enter your choice: ");
             try {
                 int choice = sc.nextInt();
                 sc.nextLine();
-                switch(choice){
-                    case 1->  productServiceImpl.reStockAll(product);
-                    case 2->  productView.viewReStock(product);
-                    case 0->  {
+                switch (choice) {
+                    case 1 -> {
+                        try {
+                            productServiceImpl.reStockAll(product);
+                        } catch (ProductOperationException e) {
+                            System.out.println("❌ Product operation failed: " + e.getMessage());
+                        }
+                    }
+                    case 2 -> {
+                        try {
+                            productView.viewReStock(product);
+                        } catch (ProductOperationException e) {
+                            System.out.println("❌ Product operation failed: " + e.getMessage());
+                        }
+                    }
+                    case 0 -> {
                         System.out.println("🔙 Exiting to previous menu.");
                         return;
                     }
-                    default-> {
+                    default -> {
                         System.out.println("❌ Invalid choice. Please try again.");
                         return;
                     }
                 }
-            }catch (InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 System.out.println("❌ Invalid input. Please enter a valid number.");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("❌ An unexpected error occurred: " + e.getMessage());
             }
         }

@@ -1,6 +1,8 @@
 package src.com.zoho.ecommerce.service.impl;
 
 import src.com.zoho.ecommerce.controller.UserController;
+import src.com.zoho.ecommerce.exception.UserAddException;
+import src.com.zoho.ecommerce.exception.UserUpdateException;
 import src.com.zoho.ecommerce.model.Customer;
 import src.com.zoho.ecommerce.model.Seller;
 import src.com.zoho.ecommerce.model.User;
@@ -22,7 +24,7 @@ public class UserServiceImpl    {
     }
 
 
-    public void update() {
+    public void update()  {
         Validation check = new Validation();
         while (true) {
             System.out.println("""
@@ -91,25 +93,27 @@ public class UserServiceImpl    {
                             ((Seller) loggedInUser).setCompanyAddress(check.address("📍 Enter new company address: "));
                             System.out.println("✅ Company address updated successfully." + ((Seller) loggedInUser).getCompanyAddress());
                         } else {
-                            System.out.println("❌ Invalid choice , no updates made.");
+                            throw new UserUpdateException("❌ Invalid choice , no updates made.");
                         }
                     }
                     case 0 -> {
                         System.out.println("👋 Exiting Update Menu.");
                         return;
                     }
-                    default -> System.out.println("❌ Invalid choice, no updates made.");
+                    default -> throw new UserUpdateException("❌ Invalid choice, no updates made.");
                 }
 
             } catch (InputMismatchException e) {
                 System.out.println("❌ Invalid Input. Please enter a valid number.");
                 sc.nextLine();
+            } catch (UserUpdateException e) {
+                System.out.println(e.getMessage());
             } catch (Exception e) {
                 System.out.println("❌ An unexpected error occurred: " + e.getMessage());
             }
         }
     }
-    public User add(){
+    public User add() {
         Validation check = new Validation();
         String name = check.name("🧑 Enter your Name :");
         String phone = isPhoneExists(check.phone("📱 Enter a valid Phone number: "), check,loggedInUser);
@@ -127,15 +131,17 @@ public class UserServiceImpl    {
                 else if (userType == SELLER)
                     return userController.createUser(name, phone, email, password, gender, check.name("🏢 Enter a Company Name :"), check.address("📍 Enter a Company Address :"));
                 else
-                    System.out.println("❌ Invalid User Type. Please enter 1 for Client or 2 for Seller.");
+                    throw new UserAddException("❌ Invalid User Type. Please enter 1 for Client or 2 for Seller.");
             } catch (InputMismatchException e) {
                 System.out.println("❌ Invalid input. Please enter a valid number.");
                 sc.nextLine();
+            } catch (UserAddException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
 
-// check duplicate Email exists
+    // check duplicate Email exists
     private  String isEmailExists(String email, Validation check, User loggedInUser) {
         while (userController.isMailExists(email,loggedInUser)) {
             System.out.println("❌ Email already exists. Please try again with a different email.");
@@ -143,7 +149,7 @@ public class UserServiceImpl    {
         }
         return email;
     }
-// checking duplicate Phone number exists
+    // checking duplicate Phone number exists
     private  String isPhoneExists(String phone, Validation check, User loggedInUser) {
         while (userController.isPhoneExists(phone, loggedInUser)) {
 

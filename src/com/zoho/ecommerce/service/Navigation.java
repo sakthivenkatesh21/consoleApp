@@ -89,6 +89,7 @@ public  class Navigation {
             }
             catch(InputMismatchException ime) {
                 System.out.println("Error: Invalid input. Please enter a number.");
+                sc.nextLine();
             }
             catch (Exception e) {
                 System.out.println("Error : An unexpected error occurred." + e.getMessage());
